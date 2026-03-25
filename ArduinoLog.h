@@ -46,9 +46,9 @@ typedef void (*printfunction)(Print*, int);
 #define LOG_LEVEL_TRACE   5
 #define LOG_LEVEL_VERBOSE 6
 
-#define CR "\n"
-#define LF "\r"
-#define NL "\n\r"
+#define CR "\r"
+#define LF "\n"
+#define NL "\r\n"
 #define LOGGING_VERSION 1_0_4
 
 /**
@@ -337,7 +337,7 @@ private:
 
 	void printFormat(const char format, va_list *args);
 
-	template <class T> void printLevel(int level, bool cr, T msg, ...)
+	template <class T> void printLevel(int level, bool ln, T msg, ...)
 	{
 #ifndef DISABLE_LOGGING
 		if (level > _level)
@@ -370,9 +370,9 @@ private:
 		{
 			_suffix(_logOutput, level);
 		}
-		if (cr)
+		if (ln)
 		{
-		    _logOutput->print(CR);
+		    _logOutput->print(NL);
 		}
 #endif
 	}
